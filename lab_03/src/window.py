@@ -1,6 +1,6 @@
 from tkinter import Tk, Label, Entry, Button, messagebox, DISABLED, VERTICAL, NO, END, CENTER
 from tkinter import ttk
-
+import random
 from myRandom import MyRandom
 from test import TestWindow
 from color import *
@@ -32,6 +32,8 @@ class Window():
     oneTableEntry: Entry
     twoTableEntry: Entry
     threeTableEntry: Entry
+
+    myrandom = MyRandom()
 
     def __init__(self, windowWidth: int, windowHeight: int):
         self.windowWidth = windowWidth
@@ -188,19 +190,18 @@ class Window():
 
     def tabularSolve(self):
         numbers = self.getNumbers(3 * self.COUNT_NUMBERS, 'digits.txt')
-
+        random.shuffle(numbers)
         oneDigit    = [int(i) % 10        for i in numbers[: self.COUNT_NUMBERS]]
         twoDigits   = [int(i) % 90 + 10   for i in numbers[self.COUNT_NUMBERS : 2 * self.COUNT_NUMBERS]]
         threeDigits = [int(i) % 900 + 100 for i in numbers[2 * self.COUNT_NUMBERS : 3 * self.COUNT_NUMBERS]]
 
         return oneDigit, twoDigits, threeDigits
-
+    #конгруэнтный метод
     def algorithmicSolve(self):
-        random = MyRandom()
 
-        oneDigit    = [random.getNumber(0, 10, self.a, self.b, self.c)     for _ in range(self.COUNT_NUMBERS)]
-        twoDigits   = [random.getNumber(10, 100, self.a, self.b, self.c)   for _ in range(self.COUNT_NUMBERS)]
-        threeDigits = [random.getNumber(100, 1000, self.a, self.b, self.c) for _ in range(self.COUNT_NUMBERS)]
+        oneDigit    = [self.myrandom.getNumber(0, 10, self.a, self.b, self.c)     for _ in range(self.COUNT_NUMBERS)]
+        twoDigits   = [self.myrandom.getNumber(10, 100, self.a, self.b, self.c)   for _ in range(self.COUNT_NUMBERS)]
+        threeDigits = [self.myrandom.getNumber(100, 1000, self.a, self.b, self.c) for _ in range(self.COUNT_NUMBERS)]
 
         return oneDigit, twoDigits, threeDigits
 
